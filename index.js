@@ -1,12 +1,11 @@
 const solanaWeb3 = require('@solana/web3.js');
 const splToken = require('@solana/spl-token');
-const { programs } = require('@metaplex-foundation/js');
 const viem = require('viem');
 const key_json = require('./id.json');
 const config = require('./config');
 
 // Define the network (devnet or mainnet)
-const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl(config.clusterApiUrl));
+const connection = new solanaWeb3.Connection(config.clusterApiUrl);
 
 // Your wallet's private key (Use a secure way to handle this in production)
 const secretKey = Uint8Array.from(key_json);
@@ -40,23 +39,8 @@ async function airdrop() {
         const fromTokenAccountInfo = await splToken.getAccount(connection, fromTokenAccount.address);
 
         let tokenName = 'token'
-        let tokenSymbol = 'token'
-        try {
-            // Retrieve the metadata address (PDA)
-            const metadataPDA = await programs.metadata.Metadata.getPDA(tokenMintAddress);
 
-            // Fetch the metadata
-            const metadata = await programs.metadata.Metadata.load(connection, metadataPDA);
-
-            // Extract the name and symbol
-            const { data: { data: { name, symbol } } } = metadata;
-
-            console.log(`Token Name: ${name}`);
-            console.log(`Token Symbol: ${symbol}`);
-            tokenName = name
-            tokenSymbol = symbol
-        } catch (error) { }
-
+        console.log(`Token Decimals: ${mintInfo.decimals}`);
         console.log(`Token Balance: ${viem.formatUnits(fromTokenAccountInfo.amount, mintInfo.decimals)} ${tokenName}`);
 
         let i = 0;

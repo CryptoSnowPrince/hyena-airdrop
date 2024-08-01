@@ -1,4 +1,4 @@
-const clusterApiUrl = 'devnet';
+const clusterApiUrl = 'https://api.devnet.solana.com/';
 
 const tokenPublicKey = "address";
 
