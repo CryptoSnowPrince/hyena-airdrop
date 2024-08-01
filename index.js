@@ -2,7 +2,7 @@ const solanaWeb3 = require('@solana/web3.js');
 const splToken = require('@solana/spl-token');
 const { programs } = require('@metaplex-foundation/js');
 const viem = require('viem');
-const key_json = require('./id_testnet.json');
+const key_json = require('./id.json');
 const config = require('./config');
 
 // Define the network (devnet or mainnet)
